@@ -1,0 +1,66 @@
+return {
+  "folke/snacks.nvim",
+  priority = 1000,
+  lazy = false,
+  ---@type snacks.Config
+  opts = {
+    bigfile = { enabled = true },
+    quickfile = { enabled = true },
+    indent = { enabled = true },
+    input = { enabled = true },
+    notifier = {
+      enabled = true,
+      timeout = 3000,
+    },
+    scope = { enabled = true },
+    scroll = { enabled = true },
+    statuscolumn = { enabled = true },
+    words = { enabled = true },
+    bufdelete = { enabled = true },
+    lazygit = { enabled = true },
+    terminal = { enabled = true },
+    git = { enabled = true },
+    gitbrowse = { enabled = true },
+    toggle = { enabled = true },
+    image = {
+      enabled = true,
+      doc = {
+        enabled = true,
+        inline = true,
+        float = true,
+      },
+    },
+    dashboard = {
+      enabled = true,
+      sections = {
+        { section = "terminal", cmd = "fortune | cowsay", hl = "header", height = 10, padding = 1, indent = 8 },
+        { section = "keys", gap = 1, padding = 1 },
+        { pane = 2, text = "", padding = { 0, 10 } },
+        { pane = 2, title = "Recent Files", padding = 1 },
+        { pane = 2, section = "recent_files", limit = 8, padding = 1 },
+      },
+      preset = {
+        keys = {
+          { icon = " ", key = "f", desc = "Find File", action = ":lua require('telescope.builtin').find_files()" },
+          { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+          { icon = " ", key = "g", desc = "Find Text", action = ":lua require('telescope.builtin').live_grep()" },
+          { icon = " ", key = "c", desc = "Config", action = ":e $MYVIMRC" },
+          { icon = "", key = "L", desc = "Lazy", action = ":Lazy" },
+          { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+        },
+      },
+    },
+  },
+  keys = {
+    { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
+    { "<leader>gb", function() Snacks.git.blame_line() end, desc = "Git Blame Line" },
+    { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse" },
+    { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
+    { "<leader>tt", function() Snacks.terminal() end, desc = "Toggle Terminal" },
+    { "<leader>nh", function() Snacks.notifier.show_history() end, desc = "Notification History" },
+    { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss Notifications" },
+    { "<leader>rn", function() Snacks.rename.rename_file() end, desc = "Rename File" },
+    { "]]",        function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
+    { "[[",        function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
+  },
+}
