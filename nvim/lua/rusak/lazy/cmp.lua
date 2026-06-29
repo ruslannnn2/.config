@@ -1,6 +1,42 @@
 return {
   {
     "mason-org/mason.nvim",
+    init = function()
+      local shim_dir = vim.fn.stdpath("data") .. "/mason-pnpm-shim"
+      local shim = shim_dir .. "/npm"
+      vim.fn.mkdir(shim_dir, "p")
+      local f = assert(io.open(shim, "w"))
+      f:write([[#!/usr/bin/env bash
+args=()
+for arg in "$@"; do
+  case "$arg" in
+    --include=dev|--silent|--no-audit|--no-fund|--no-package-lock|--no-save|--global-style|--install-strategy=*|--legacy-peer-deps|--yes|-y|--scope=*)
+      ;;
+    *)
+      args+=("$arg")
+      ;;
+  esac
+done
+pnpm "${args[@]}"
+rc=$?
+# Mason invokes us from a staging dir, then moves the package to mason/packages/.
+# pnpm's cmd-shim bins derive $basedir from $0, which after the move resolves to
+# the symlink at mason/bin/ rather than the real script — so $basedir/.. points
+# at the wrong place. Patch the bins to resolve $0 through symlinks instead.
+if [ $rc -eq 0 ] && [ "${args[0]:-}" = "install" ] && [ -d node_modules/.bin ]; then
+  for shim in node_modules/.bin/*; do
+    [ -f "$shim" ] && [ ! -L "$shim" ] || continue
+    sed -i 's|^basedir=.*$|basedir=$(dirname "$(readlink -f "$0")")|' "$shim"
+  done
+fi
+exit $rc
+]])
+      f:close()
+      vim.loop.fs_chmod(shim, 493)
+      if not vim.env.PATH:find(shim_dir, 1, true) then
+        vim.env.PATH = shim_dir .. ":" .. vim.env.PATH
+      end
+    end,
     opts = {},
   },
 
@@ -11,9 +47,7 @@ return {
       ensure_installed = {
         "lua_ls",
         "pyright",
-        "clangd",
         "vtsls",
-        "eslint",
         "svelte",
       },
       automatic_installation = true,
@@ -64,7 +98,6 @@ return {
 
   {
     "saghen/blink.cmp",
-    build = "cargo build --release",
     dependencies = { "rafamadriz/friendly-snippets" },
     version = "*",
     config = function()

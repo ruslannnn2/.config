@@ -33,9 +33,7 @@ return {
     dashboard = {
       enabled = true,
       sections = {
-        { section = "terminal", cmd = "fortune | cowsay", hl = "header", height = 10, padding = 1, indent = 8 },
         { section = "keys", gap = 1, padding = 1 },
-        { pane = 2, text = "", padding = { 0, 10 } },
         { pane = 2, title = "Recent Files", padding = 1 },
         { pane = 2, section = "recent_files", limit = 8, padding = 1 },
       },
