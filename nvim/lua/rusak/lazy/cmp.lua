@@ -8,15 +8,15 @@ return {
     "mason-org/mason-lspconfig.nvim",
     dependencies = { "mason-org/mason.nvim" },
     opts = {
-      ensure_installed = {
-        "lua_ls",
-        "pyright",
-        "clangd",
-        "vtsls",
-        "eslint",
-        "svelte",
-      },
-      automatic_installation = true,
+      -- ensure_installed = {
+      --   "lua_ls",
+      --   "pyright",
+      --   "clangd",
+      --   "vtsls",
+      --   "eslint",
+      --   "svelte",
+      -- },
+      automatic_installation = false,
     },
   },
 
@@ -51,6 +51,11 @@ return {
         capabilities = capabilities,
       })
 
+
+      lsp.config("rust_analyzer", {
+        capabilities = capabilities,
+      })
+
       lsp.config("eslint", {
         capabilities = capabilities,
         settings = {
@@ -58,7 +63,24 @@ return {
         },
       })
 
-      vim.lsp.enable({ "lua_ls", "pyright", "clangd", "vtsls", "eslint", "svelte" })
+      lsp.config("nixd", {
+        capabilities = capabilities,
+
+        settings = {
+          nixd = {
+            nixpkgs = {
+              expr = "import <nixpkgs> { }",
+            },
+
+            options = {
+              nixos = {
+                expr = '(builtins.getFlake "/etc/nixos").nixosConfigurations.rusmachine.options',
+              },
+            },
+          },
+        },
+      })
+      vim.lsp.enable({ "lua_ls", "pyright", "clangd", "vtsls", "eslint", "svelte", "rust_analyzer", "nixd" })
     end,
   },
 
