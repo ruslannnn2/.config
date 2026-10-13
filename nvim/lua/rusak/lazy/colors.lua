@@ -1,9 +1,9 @@
 return{
   {
 		"WTFox/jellybeans.nvim",
-		laazy = false,
+		lazy = false,
 		priority = 1000,
-		opts ={}
+		opts = { transparent = true, flat_ui = false },
 	},
 	{
 		"folke/tokyonight.nvim",
