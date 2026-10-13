@@ -1,11 +1,15 @@
 local mainMod = "SUPER"
 local terminal = "kitty"
 local menu = "rofi -show drun"
+local windowSwitcher = "rofi -show window"
 
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal), {
     description = "Open terminal",
 })
 hl.bind("ALT + Space", hl.dsp.exec_cmd(menu), {
+    description = "Open application launcher",
+})
+hl.bind("ALT + TAB", hl.dsp.exec_cmd(windowSwitcher), {
     description = "Open application launcher",
 })
 hl.bind(mainMod .. " + Q", hl.dsp.window.close(), {

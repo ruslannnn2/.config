@@ -1,0 +1,12 @@
+configuration {
+    show-icons: true;
+    font: "JetBrainsMono Nerd Font Mono 12";
+
+    display-ssh:    " ssh:";
+    display-run:    " run:";
+    display-drun:   " drun:";
+    display-window: " window:";
+    display-combi:  " combi:";
+    display-filebrowser: " filebrowser:";
+}
+@theme "jellybeans"

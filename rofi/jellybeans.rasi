@@ -1,0 +1,155 @@
+/**
+ * Jellybeans Rofi theme
+ *
+ * Colors: jellybeans-default from WTFox/jellybeans.nvim
+ *
+ */
+
+
+* {
+    jelly0: #151515;
+    jelly1: #1c1c1c;
+    panel: rgba(21, 21, 21, 95%);
+    input-panel: rgba(28, 28, 28, 95%);
+    jelly2: #333333;
+    jelly3: #404040;
+
+    jelly4: #e8e8d3;
+    jelly5: #dddddd;
+    jelly6: #c7c7c7;
+
+    jelly7: #8fbfdc;
+    jelly8: #888888;
+    jelly9: #a0a8b0;
+    jelly10: #535d66;
+    red: #d74545;
+
+    orange: #e6a75a;
+    yellow: #fad07a;
+    aqua: #99ad6a;
+    purple: #c6b6ee;
+
+    reddark: #902020;
+    yellowdark: #556633;
+
+    foreground:  @jelly9;
+    background-color:  transparent;
+    
+    highlight:     underline bold #e8e8d3;
+
+    transparent: rgba(21,21,21,0);
+
+}
+
+window {
+    location: center;
+    anchor:   center;
+    transparency: "screenshot";
+    padding: 50px;
+    border-radius: 5px;
+    height: 550px;
+    width: 600px;
+
+    background-color: @transparent;
+    spacing: 0;
+    children:  [mainbox];
+    orientation: horizontal;
+}
+
+mainbox {
+    spacing: 0;
+    children: [ inputbar, message, listview ];
+}
+
+message {
+    color: @jelly0;
+    padding: 5px;
+    border-color: @foreground;
+    border:  0px 2px 2px 2px;
+    background-color: @jelly7;
+}
+
+inputbar {
+    color: @jelly6;
+    padding: 11px;
+    background-color: @input-panel;
+
+    border: 1px;
+    border-radius:  6px 6px 0px 0px;
+    border-color: @jelly10;
+}
+
+entry, prompt, case-indicator {
+    text-font: inherit;
+    text-color: inherit;
+}
+
+prompt {
+    margin: 0px 1em 0em 0em ;
+}
+
+listview {
+    padding: 8px;
+    border-radius: 0px 0px 6px 6px;
+    border-color: @jelly10;
+    border: 0px 1px 1px 1px;
+    background-color: @panel;
+    dynamic: false;
+}
+
+element {
+    padding: 3px;
+    vertical-align: 0.5;
+    border-radius: 4px;
+    background-color: transparent;
+    color: @foreground;
+    text-color: @jelly4;
+}
+
+element.normal.active {
+    background-color: @purple;
+}
+
+element.normal.urgent {
+    background-color: @reddark;
+}
+
+element.selected.normal {
+    background-color: @jelly7;
+    text-color: @jelly0;
+}
+
+element.selected.active {
+    background-color: @yellowdark;
+}
+
+element.selected.urgent {
+    background-color: @red;
+}
+
+element.alternate.normal {
+    background-color: @jelly1;
+}
+
+element-text, element-icon {
+    size: 3ch;
+    margin: 0 10 0 0;
+    vertical-align: 0.5;
+    background-color: inherit;
+    text-color: inherit;
+}
+
+button {
+    padding: 6px;
+    color: @foreground;
+    horizontal-align: 0.5;
+
+    border: 2px 0px 2px 2px;
+    border-radius: 4px 0px 0px 4px;
+    border-color: @foreground;
+}
+
+button.selected.normal {
+    border: 2px 0px 2px 2px;
+    border-color: @foreground;
+}
