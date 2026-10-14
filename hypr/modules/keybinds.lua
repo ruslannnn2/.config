@@ -61,7 +61,7 @@ hl.bind(mainMod .. " + SHIFT + L", hl.dsp.window.resize({x = 10, y = 0, relative
     repeating = true
 })
 
-for workspace = 1, 5 do
+for workspace = 1, 9 do
     hl.bind(mainMod .. " + " .. workspace, hl.dsp.focus({ workspace = workspace }), {
         description = "Switch to workspace " .. workspace,
     })
@@ -73,7 +73,7 @@ for workspace = 1, 5 do
 end
 
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
-hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+-- hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), {
     locked = true,
